@@ -7,7 +7,7 @@ import { TileState } from "../utils/tileState";
 const Board: FunctionComponent<{}> = () => {
     const [boardState, setBoardState] = useState(
         Array.from({ length: 9 }, () =>
-            new Array(9).fill(TileState.Hover)
+            new Array(9).fill(TileState.Empty)
         ) as TileState[][]
     );
     return (
