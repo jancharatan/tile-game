@@ -6,7 +6,7 @@ const Quadrant: FunctionComponent<{ quadrantState: TileState[][] }> = ({
     quadrantState,
 }) => {
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col outline outline-black relative">
             <div className="flex">
                 <Tile tileState={quadrantState[0][0]} />
                 <Tile tileState={quadrantState[0][0]} />
