@@ -1,5 +1,6 @@
 import { FunctionComponent } from "react";
 import Board from "../components/Board";
+import Plus from "@/tiles/plus";
 
 const Home: FunctionComponent<{}> = () => {
     return (
@@ -14,6 +15,7 @@ const Home: FunctionComponent<{}> = () => {
                 </button>
             </div>
             <Board />
+            <Plus size={40} />
         </div>
     );
 };
