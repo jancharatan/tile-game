@@ -8,7 +8,7 @@ const Tile: FunctionComponent<{
 }> = ({ tileState, tileRow, tileCol }) => {
     return (
         <div
-            className={`relative w-14 h-14 border-gray-400
+            className={`relative h-10 w-10 md:h-12 md:w-12 lg:w-14 lg:h-14 border-gray-400
             ${tileRow !== 2 && `border-b`}
             ${tileCol !== 2 && `border-r`}
             ${tileState === TileState.Empty && `bg-white`}

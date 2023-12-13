@@ -1,11 +1,11 @@
 import { FunctionComponent } from "react";
 import Board from "../components/Board";
-import Plus from "@/tiles/plus";
+import TileBank from "../components/TileBank";
 
 const Home: FunctionComponent<{}> = () => {
     return (
-        <div className="p-10 items-center">
-            <div className="flex flex-row justify-between items-center">
+        <div className="p-10 flex flex-col items-center">
+            <div className="w-full flex flex-row justify-between items-center">
                 <div className="w-48 mb-3 text-2xl font-semibold p-2">
                     Tile Game
                 </div>
@@ -15,6 +15,7 @@ const Home: FunctionComponent<{}> = () => {
                 </button>
             </div>
             <Board />
+            <TileBank />
         </div>
     );
 };
