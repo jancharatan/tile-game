@@ -15,7 +15,6 @@ const Home: FunctionComponent<{}> = () => {
                 </button>
             </div>
             <Board />
-            <Plus size={40} />
         </div>
     );
 };
