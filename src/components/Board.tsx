@@ -13,7 +13,7 @@ const Board: FunctionComponent<{}> = () => {
     return (
         <div className="flex justify-center items-center flex-col">
             {[0, 3, 6].map((row) => (
-                <div className="flex">
+                <div className="flex ">
                     {[0, 3, 6].map((col) => (
                         <Quadrant
                             quadrantState={[
@@ -21,6 +21,8 @@ const Board: FunctionComponent<{}> = () => {
                                 boardState[1 + row].slice(0 + col, 3 + col),
                                 boardState[2 + row].slice(0 + col, 3 + col),
                             ]}
+                            quadrantRow={row / 3}
+                            quadrantCol={col / 3}
                         />
                     ))}
                 </div>
