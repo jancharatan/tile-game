@@ -1,4 +1,4 @@
-import { TileState } from "../utils/tileState";
+import { TileState } from "../utils/gameEnums";
 import { FunctionComponent } from "react";
 
 const Tile: FunctionComponent<{

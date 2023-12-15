@@ -1,15 +1,9 @@
-"use client";
-
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useContext } from "react";
 import Quadrant from "./Quadrant";
-import { TileState } from "../utils/tileState";
+import { BoardContext } from "@/pages/Home";
 
-const Board: FunctionComponent<{}> = () => {
-    const [boardState, setBoardState] = useState(
-        Array.from({ length: 9 }, () =>
-            new Array(9).fill(TileState.Empty)
-        ) as TileState[][]
-    );
+const Board: FunctionComponent = ({}) => {
+    const { boardState } = useContext(BoardContext);
     return (
         <div className="flex justify-center items-center flex-col">
             {[0, 3, 6].map((row) => (

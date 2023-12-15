@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import Tile from "./Tile";
-import { TileState } from "@/utils/tileState";
+import { TileState } from "@/utils/gameEnums";
 
 const Quadrant: FunctionComponent<{
     quadrantState: TileState[][];
