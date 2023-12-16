@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import React, { FunctionComponent } from "react";
 import Tile from "./Tile";
 import { TileState } from "@/utils/gameEnums";
 
@@ -14,9 +14,10 @@ const Quadrant: FunctionComponent<{
             ${quadrantRow == 2 && `border-b-4`}`}
         >
             {[0, 1, 2].map((row) => (
-                <div className="flex">
+                <div className="flex" key={`row-${row}`}>
                     {[0, 1, 2].map((col) => (
                         <Tile
+                            key={`tile-col-${col}`}
                             tileState={quadrantState[row][col]}
                             tileRow={row}
                             tileCol={col}

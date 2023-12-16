@@ -3,3 +3,8 @@ export enum TileState {
     Occupied,
     Hover,
 }
+
+export enum TileList {
+    Empty = "Empty",
+    Plus = "Plus",
+}

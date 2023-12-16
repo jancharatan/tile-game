@@ -1,15 +1,17 @@
 import { FunctionComponent, useContext } from "react";
 import Quadrant from "./Quadrant";
-import { BoardContext } from "@/pages/Home";
+import { useBoardState } from "@/context/BoardStateContext";
 
 const Board: FunctionComponent = ({}) => {
-    const { boardState } = useContext(BoardContext);
+    const { boardState } = useBoardState();
+
     return (
         <div className="flex justify-center items-center flex-col">
             {[0, 3, 6].map((row) => (
-                <div className="flex ">
+                <div key={`board-row-${row / 3}`} className="flex ">
                     {[0, 3, 6].map((col) => (
                         <Quadrant
+                            key={`quadrant-row-${row / 3}-col-${col / 3}`}
                             quadrantState={[
                                 boardState[0 + row].slice(0 + col, 3 + col),
                                 boardState[1 + row].slice(0 + col, 3 + col),
