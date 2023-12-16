@@ -1,10 +1,17 @@
 "use client";
 
+import { useEffect } from "react";
 import TileOption from "../components/TileOption";
 import { useTileBankState } from "@/context/TileBankContext";
 
 const TileBank = () => {
     const tileBank = useTileBankState();
+
+    useEffect(() => {
+        if (tileBank.tileBankState.length === 0) {
+            tileBank.resetTileBank();
+        }
+    }, []);
 
     return (
         <div className="mt-8 flex items-center justify-center">
