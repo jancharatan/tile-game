@@ -42,7 +42,6 @@ export const TileBankProvider: FunctionComponent<{
     };
 
     const emptyTile = (index: number): void => {
-        console.log("Emptying", index);
         setTileBankState(
             tileBankState.map((tile, i) =>
                 i === index ? TileList.Empty : tile

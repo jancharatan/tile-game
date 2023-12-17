@@ -19,8 +19,8 @@ const Quadrant: FunctionComponent<{
                         <Tile
                             key={`tile-col-${col}`}
                             tileState={quadrantState[row][col]}
-                            tileRow={row}
-                            tileCol={col}
+                            tileRow={quadrantRow * 3 + row}
+                            tileCol={quadrantCol * 3 + col}
                         />
                     ))}
                 </div>
