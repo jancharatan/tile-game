@@ -97,7 +97,6 @@ const checkQuadrantCompletion = (
                 qRow,
                 qCol
             );
-            console.log("VALS", quadrantVals, "COORDS", quadrantCoords);
             if (quadrantVals.every((val) => val === TileState.Occupied)) {
                 setBoardStateAtCoords(quadrantCoords, TileState.Empty);
             }
