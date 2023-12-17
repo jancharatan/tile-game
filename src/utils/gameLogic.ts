@@ -27,47 +27,48 @@ const placeTile = (
     }
 
     setBoardStateAtCoords(coords, TileState.Occupied);
-    checkRowCompletion(boardState, setBoardStateAtCoords);
-    checkColCompletion(boardState, setBoardStateAtCoords);
-    checkQuadrantCompletion(boardState, setBoardStateAtCoords);
-};
-
-const checkRowCompletion = (
-    boardState: TileState[][],
-    setBoardStateAtCoords: (coords: number[][], setTo: TileState) => void
-) => {
-    for (let row = 0; row < boardState.length; row++) {
-        if (boardState[row].every((value) => value === TileState.Occupied)) {
-            setBoardStateAtCoords(
-                Array.from({ length: boardState[row].length }, (v, index) => [
-                    row,
-                    index,
-                ]),
-                TileState.Empty
-            );
-        }
+    const rowsToRemove = checkRowCompletion(boardState);
+    const colsToRemove = checkColCompletion(boardState);
+    const quadrantsToRemove = checkQuadrantCompletion(boardState);
+    for (let coords of rowsToRemove
+        .concat(colsToRemove)
+        .concat(quadrantsToRemove)) {
+        setBoardStateAtCoords(coords, TileState.Empty);
     }
 };
 
-const checkColCompletion = (
-    boardState: TileState[][],
-    setBoardStateAtCoords: (coords: number[][], setTo: TileState) => void
-) => {
+const checkRowCompletion = (boardState: TileState[][]): number[][][] => {
+    let rowsToRemove = [];
+    for (let row = 0; row < boardState.length; row++) {
+        if (boardState[row].every((value) => value === TileState.Occupied)) {
+            rowsToRemove.push(
+                Array.from({ length: boardState[row].length }, (v, index) => [
+                    row,
+                    index,
+                ])
+            );
+        }
+    }
+    return rowsToRemove;
+};
+
+const checkColCompletion = (boardState: TileState[][]): number[][][] => {
+    let colsToRemove = [];
     for (let col = 0; col < boardState.length; col++) {
         let currentCol = Array.from(
             { length: boardState.length },
             (v, index) => boardState[index][col]
         );
         if (currentCol.every((value) => value === TileState.Occupied)) {
-            setBoardStateAtCoords(
+            colsToRemove.push(
                 Array.from({ length: boardState.length }, (v, index) => [
                     index,
                     col,
-                ]),
-                TileState.Empty
+                ])
             );
         }
     }
+    return colsToRemove;
 };
 
 const getQuadrantAt = (
@@ -86,10 +87,8 @@ const getQuadrantAt = (
     return { quadrantVals, quadrantCoords };
 };
 
-const checkQuadrantCompletion = (
-    boardState: TileState[][],
-    setBoardStateAtCoords: (coords: number[][], setTo: TileState) => void
-) => {
+const checkQuadrantCompletion = (boardState: TileState[][]): number[][][] => {
+    let quadrantsToRemove = [];
     for (let qRow = 0; qRow < boardState.length; qRow += 3) {
         for (let qCol = 0; qCol < boardState[qRow].length; qCol += 3) {
             let { quadrantVals, quadrantCoords } = getQuadrantAt(
@@ -98,10 +97,11 @@ const checkQuadrantCompletion = (
                 qCol
             );
             if (quadrantVals.every((val) => val === TileState.Occupied)) {
-                setBoardStateAtCoords(quadrantCoords, TileState.Empty);
+                quadrantsToRemove.push(quadrantCoords);
             }
         }
     }
+    return quadrantsToRemove;
 };
 
 export { canPlace, placeTile };
