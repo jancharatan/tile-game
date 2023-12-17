@@ -2,11 +2,11 @@ import { useBoardState } from "@/context/BoardStateContext";
 import { TileState } from "./gameEnums";
 
 const canPlace = (tile: number[][], location: number[]): boolean => {
-    const { boardState } = useBoardState();
+    const { board } = useBoardState();
     for (let coords of tile) {
         let row = location[0] + coords[0];
         let col = location[1] + coords[1];
-        if (boardState[row][col] === TileState.Occupied) {
+        if (board[row][col] === TileState.Occupied) {
             return false;
         }
     }
@@ -27,12 +27,10 @@ const placeTile = (
     }
 
     setBoardStateAtCoords(coords, TileState.Occupied);
-    const rowsToRemove = checkRowCompletion(boardState);
-    const colsToRemove = checkColCompletion(boardState);
-    const quadrantsToRemove = checkQuadrantCompletion(boardState);
-    for (let coords of rowsToRemove
-        .concat(colsToRemove)
-        .concat(quadrantsToRemove)) {
+    const rows = checkRowCompletion(boardState);
+    const cols = checkColCompletion(boardState);
+    const quadrants = checkQuadrantCompletion(boardState);
+    for (let coords of rows.concat(cols).concat(quadrants)) {
         setBoardStateAtCoords(coords, TileState.Empty);
     }
 };

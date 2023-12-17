@@ -9,14 +9,14 @@ import {
 } from "react";
 
 type BoardStateContextType = {
-    boardState: TileState[][];
-    setBoardState: Dispatch<SetStateAction<TileState[][]>>;
+    board: TileState[][];
+    setBoard: Dispatch<SetStateAction<TileState[][]>>;
     setBoardStateAtCoords: (coords: number[][], setTo: TileState) => void;
 };
 
 const BoardStateContext = createContext<BoardStateContextType>({
-    boardState: [[]],
-    setBoardState: () => {},
+    board: [[]],
+    setBoard: () => {},
     setBoardStateAtCoords: () => {},
 });
 
@@ -27,7 +27,7 @@ export const useBoardState = () => {
 export const BoardStateProvider: FunctionComponent<{
     children: any;
 }> = ({ children }) => {
-    const [boardState, setBoardState] = useState<TileState[][]>(
+    const [board, setBoard] = useState<TileState[][]>(
         Array.from({ length: 9 }, () =>
             new Array(9).fill(TileState.Empty)
         ) as TileState[][]
@@ -35,14 +35,14 @@ export const BoardStateProvider: FunctionComponent<{
 
     const setBoardStateAtCoords = (coords: number[][], setTo: TileState) => {
         for (let coord of coords) {
-            boardState[coord[0]][coord[1]] = setTo;
+            board[coord[0]][coord[1]] = setTo;
         }
-        setBoardState([...boardState]);
+        setBoard([...board]);
     };
 
     const value = {
-        boardState,
-        setBoardState,
+        board,
+        setBoard,
         setBoardStateAtCoords,
     };
 

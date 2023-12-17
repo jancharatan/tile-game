@@ -8,14 +8,14 @@ const Tile: FunctionComponent<{
     tileRow: number;
     tileCol: number;
 }> = ({ tileState, tileRow, tileCol }) => {
-    const { boardState, setBoardStateAtCoords } = useBoardState();
+    const { board, setBoardStateAtCoords } = useBoardState();
     return (
         <div
             onClick={() => {
                 placeTile(
                     [[0, 0]],
                     [tileRow, tileCol],
-                    boardState,
+                    board,
                     setBoardStateAtCoords
                 );
             }}

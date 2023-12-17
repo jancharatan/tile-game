@@ -3,7 +3,7 @@ import Quadrant from "./Quadrant";
 import { useBoardState } from "@/context/BoardStateContext";
 
 const Board: FunctionComponent = ({}) => {
-    const { boardState } = useBoardState();
+    const { board } = useBoardState();
 
     return (
         <div className="flex justify-center items-center flex-col">
@@ -13,9 +13,9 @@ const Board: FunctionComponent = ({}) => {
                         <Quadrant
                             key={`quadrant-row-${row / 3}-col-${col / 3}`}
                             quadrantState={[
-                                boardState[0 + row].slice(0 + col, 3 + col),
-                                boardState[1 + row].slice(0 + col, 3 + col),
-                                boardState[2 + row].slice(0 + col, 3 + col),
+                                board[0 + row].slice(0 + col, 3 + col),
+                                board[1 + row].slice(0 + col, 3 + col),
+                                board[2 + row].slice(0 + col, 3 + col),
                             ]}
                             quadrantRow={row / 3}
                             quadrantCol={col / 3}
