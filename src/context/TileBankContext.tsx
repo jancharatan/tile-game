@@ -5,7 +5,6 @@ import {
     SetStateAction,
     createContext,
     useContext,
-    useEffect,
     useState,
 } from "react";
 
@@ -19,12 +18,14 @@ type TileBankContextType = {
     tileBankState: TileList[];
     setTileBankState: Dispatch<SetStateAction<TileList[]>>;
     resetTileBank: () => void;
+    emptyTile: (index: number) => void;
 };
 
 const TileBankContext = createContext<TileBankContextType>({
     tileBankState: [],
     setTileBankState: () => {},
     resetTileBank: () => {},
+    emptyTile: () => {},
 });
 
 export function useTileBankState() {
@@ -40,12 +41,20 @@ export const TileBankProvider: FunctionComponent<{
         setTileBankState([getRandomTile(), getRandomTile(), getRandomTile()]);
     };
 
-    useEffect(() => {}, []);
+    const emptyTile = (index: number): void => {
+        console.log("Emptying", index);
+        setTileBankState(
+            tileBankState.map((tile, i) =>
+                i === index ? TileList.Empty : tile
+            )
+        );
+    };
 
     const value = {
         tileBankState,
         setTileBankState,
         resetTileBank,
+        emptyTile,
     };
 
     return (

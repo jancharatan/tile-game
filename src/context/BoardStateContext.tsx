@@ -5,7 +5,6 @@ import {
     SetStateAction,
     createContext,
     useContext,
-    useEffect,
     useState,
 } from "react";
 
@@ -31,8 +30,6 @@ export const BoardStateProvider: FunctionComponent<{
             new Array(9).fill(TileState.Empty)
         ) as TileState[][]
     );
-
-    useEffect(() => {}, []);
 
     const value = {
         boardState,
