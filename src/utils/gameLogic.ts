@@ -19,8 +19,6 @@ const placeTile = (
     boardState: TileState[][],
     setBoardStateAtCoords: (coords: number[][], setTo: TileState) => void
 ): void => {
-    console.log("PLACING");
-
     let coords = [];
     for (let coord of tile) {
         let row = location[0] + coord[0];
@@ -28,10 +26,10 @@ const placeTile = (
         coords.push([row, col]);
     }
 
-    console.log(coords);
-
     setBoardStateAtCoords(coords, TileState.Occupied);
     checkRowCompletion(boardState, setBoardStateAtCoords);
+    checkColCompletion(boardState, setBoardStateAtCoords);
+    checkQuadrantCompletion(boardState, setBoardStateAtCoords);
 };
 
 const checkRowCompletion = (
@@ -51,4 +49,60 @@ const checkRowCompletion = (
     }
 };
 
-export { canPlace, placeTile, checkRowCompletion };
+const checkColCompletion = (
+    boardState: TileState[][],
+    setBoardStateAtCoords: (coords: number[][], setTo: TileState) => void
+) => {
+    for (let col = 0; col < boardState.length; col++) {
+        let currentCol = Array.from(
+            { length: boardState.length },
+            (v, index) => boardState[index][col]
+        );
+        if (currentCol.every((value) => value === TileState.Occupied)) {
+            setBoardStateAtCoords(
+                Array.from({ length: boardState.length }, (v, index) => [
+                    index,
+                    col,
+                ]),
+                TileState.Empty
+            );
+        }
+    }
+};
+
+const getQuadrantAt = (
+    boardState: TileState[][],
+    qRow: number,
+    qCol: number
+): { quadrantVals: TileState[]; quadrantCoords: number[][] } => {
+    let quadrantVals = [];
+    let quadrantCoords = [];
+    for (let row = 0; row < 3; row++) {
+        for (let col = 0; col < 3; col++) {
+            quadrantVals.push(boardState[qRow + row][qCol + col]);
+            quadrantCoords.push([qRow + row, qCol + col]);
+        }
+    }
+    return { quadrantVals, quadrantCoords };
+};
+
+const checkQuadrantCompletion = (
+    boardState: TileState[][],
+    setBoardStateAtCoords: (coords: number[][], setTo: TileState) => void
+) => {
+    for (let qRow = 0; qRow < boardState.length; qRow += 3) {
+        for (let qCol = 0; qCol < boardState[qRow].length; qCol += 3) {
+            let { quadrantVals, quadrantCoords } = getQuadrantAt(
+                boardState,
+                qRow,
+                qCol
+            );
+            console.log("VALS", quadrantVals, "COORDS", quadrantCoords);
+            if (quadrantVals.every((val) => val === TileState.Occupied)) {
+                setBoardStateAtCoords(quadrantCoords, TileState.Empty);
+            }
+        }
+    }
+};
+
+export { canPlace, placeTile };
