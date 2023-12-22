@@ -8,11 +8,7 @@ const Quadrant: FunctionComponent<{
     quadrantCol: number;
 }> = ({ quadrantState, quadrantRow, quadrantCol }) => {
     return (
-        <div
-            className={`flex flex-col border-t-4 border-l-4 border-gray-400 
-            ${quadrantCol == 2 && `border-r-4`} 
-            ${quadrantRow == 2 && `border-b-4`}`}
-        >
+        <div className="flex flex-col outline outline-gray-400">
             {[0, 1, 2].map((row) => (
                 <div className="flex" key={`row-${row}`}>
                     {[0, 1, 2].map((col) => (

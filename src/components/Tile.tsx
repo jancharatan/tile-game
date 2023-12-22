@@ -19,9 +19,7 @@ const Tile: FunctionComponent<{
                     setBoardStateAtCoords
                 );
             }}
-            className={`relative h-10 w-10 md:h-12 md:w-12 lg:w-14 lg:h-14 border-gray-400
-                ${tileRow !== 2 && `border-b`}
-                ${tileCol !== 2 && `border-r`}
+            className={`w-10 h-10 shadow-[inset_0_0_0.2pt_0.2pt_rgba(156,163,175,1)]
                 ${tileState === TileState.Empty && `bg-white`}
                 ${tileState === TileState.Occupied && `bg-blue-950`}
                 ${tileState === TileState.Hover && `bg-gray-400`}`}

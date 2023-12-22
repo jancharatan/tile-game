@@ -8,7 +8,7 @@ const Plus: FunctionComponent<{ size: number }> = ({ size }) => (
             y="0"
             width={size / 3}
             height={size / 3}
-            fill="white"
+            fill="#172554"
         />
         <rect
             style={{ pointerEvents: "none" }}
@@ -16,7 +16,7 @@ const Plus: FunctionComponent<{ size: number }> = ({ size }) => (
             y={size / 3}
             width={size / 3}
             height={size / 3}
-            fill="white"
+            fill="#172554"
         />
         <rect
             style={{ pointerEvents: "none" }}
@@ -24,7 +24,7 @@ const Plus: FunctionComponent<{ size: number }> = ({ size }) => (
             y={size / 3}
             width={size / 3}
             height={size / 3}
-            fill="white"
+            fill="#172554"
         />
         <rect
             style={{ pointerEvents: "none" }}
@@ -32,7 +32,7 @@ const Plus: FunctionComponent<{ size: number }> = ({ size }) => (
             y={size / 3}
             width={size / 3}
             height={size / 3}
-            fill="white"
+            fill="#172554"
         />
         <rect
             style={{ pointerEvents: "none" }}
@@ -40,7 +40,7 @@ const Plus: FunctionComponent<{ size: number }> = ({ size }) => (
             y={size * (2 / 3)}
             width={size / 3}
             height={size / 3}
-            fill="white"
+            fill="#172554"
         />
     </svg>
 );
