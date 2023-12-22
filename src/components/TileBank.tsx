@@ -14,7 +14,7 @@ const TileBank = () => {
     }, []);
 
     return (
-        <div className="mt-8 flex items-center justify-center">
+        <div className="flex items-center justify-center">
             <TileOption tile={tileBankState[0]} index={0} />
             <TileOption tile={tileBankState[1]} index={1} />
             <TileOption tile={tileBankState[2]} index={2} />

@@ -1,7 +1,7 @@
 "use client";
 
 import Draggable from "react-draggable";
-import Plus from "@/tiles/plus";
+import Plus from "@/tiles/Plus";
 import { TileList } from "@/utils/gameEnums";
 import { FunctionComponent, useState } from "react";
 
@@ -13,7 +13,7 @@ const TileOption: FunctionComponent<{ tile: TileList; index: number }> = ({
     const [size, setSize] = useState(1);
 
     return (
-        <div className="flex h-full w-full justify-center items-center ml-5 mr-5">
+        <div className="flex h-full w-full justify-center items-center">
             <Draggable
                 position={position}
                 defaultPosition={{ x: 0, y: 0 }}

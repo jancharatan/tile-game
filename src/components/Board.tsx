@@ -6,7 +6,7 @@ const Board: FunctionComponent = ({}) => {
     const { board } = useBoardState();
 
     return (
-        <div className="flex justify-center items-center flex-col">
+        <div className="mt-8 flex justify-center items-center flex-col">
             {[0, 3, 6].map((row) => (
                 <div key={`board-row-${row / 3}`} className="flex ">
                     {[0, 3, 6].map((col) => (
