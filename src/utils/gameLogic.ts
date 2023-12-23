@@ -111,25 +111,25 @@ const checkBoardOnHover = (
     board: TileState[][],
     tile: number[][]
 ) => {
-    const closestXCoord = Math.round((x - boardOffsetLeft) / tileSize);
-    const closestYCoord = Math.round((y - boardOffsetTop) / tileSize);
+    const closestCol = Math.round((x - boardOffsetLeft) / tileSize);
+    const closestRow = Math.round((y - boardOffsetTop) / tileSize);
     for (let coord of tile) {
-        let xTry = coord[0] + closestXCoord;
-        let yTry = coord[1] + closestYCoord;
-        if (xTry < 0 || xTry >= board.length) {
+        let rowTry = coord[0] + closestRow;
+        let colTry = coord[1] + closestCol;
+        if (rowTry < 0 || rowTry >= board.length) {
             return null;
         }
-        if (yTry < 0 || yTry >= board.length) {
+        if (colTry < 0 || colTry >= board.length) {
             return null;
         }
-        if (board[xTry][yTry] === TileState.Occupied) {
+        if (board[rowTry][colTry] === TileState.Occupied) {
             return null;
         }
     }
-    return tile.map((coord) => [
-        coord[0] + closestXCoord,
-        coord[1] + closestYCoord,
-    ]);
+    console.log(
+        tile.map((coord) => [coord[0] + closestRow, coord[1] + closestCol])
+    );
+    return tile.map((coord) => [coord[0] + closestRow, coord[1] + closestCol]);
 };
 
 export { canPlace, placeTile, checkBoardOnHover };

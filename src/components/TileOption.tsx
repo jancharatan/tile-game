@@ -2,7 +2,7 @@
 
 import Draggable from "react-draggable";
 import Plus from "@/tiles/Plus";
-import { TileList } from "@/utils/gameEnums";
+import { TileList, TileState } from "@/utils/gameEnums";
 import { FunctionComponent, useState } from "react";
 import { useInteractionState } from "@/context/InteractionContext";
 import { checkBoardOnHover } from "@/utils/gameLogic";
@@ -15,7 +15,7 @@ const TileOption: FunctionComponent<{ tile: TileList; index: number }> = ({
 }) => {
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [size, setSize] = useState(1);
-    const { board } = useBoardState();
+    const { board, setBoardStateAtCoords } = useBoardState();
     const { boardOffsetLeft, boardOffsetTop, tileSize } = useInteractionState();
 
     return (
@@ -25,17 +25,18 @@ const TileOption: FunctionComponent<{ tile: TileList; index: number }> = ({
                 defaultPosition={{ x: 0, y: 0 }}
                 // @ts-ignore
                 onDrag={(e: MouseEvent) => {
-                    console.log(
-                        checkBoardOnHover(
-                            boardOffsetLeft,
-                            boardOffsetTop,
-                            tileSize,
-                            e.clientX - e.offsetX,
-                            e.clientY - e.offsetY,
-                            board,
-                            tileSizes[tile]
-                        )
+                    const hoveredTiles = checkBoardOnHover(
+                        boardOffsetLeft,
+                        boardOffsetTop,
+                        tileSize,
+                        e.clientX - e.offsetX,
+                        e.clientY - e.offsetY,
+                        board,
+                        tileSizes[tile]
                     );
+                    if (hoveredTiles) {
+                        setBoardStateAtCoords(hoveredTiles, TileState.Hover);
+                    }
                 }}
                 onStart={() => {
                     setSize(2);
