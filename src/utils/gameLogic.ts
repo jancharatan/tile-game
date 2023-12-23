@@ -102,4 +102,34 @@ const checkQuadrantCompletion = (boardState: TileState[][]): number[][][] => {
     return quadrantsToRemove;
 };
 
-export { canPlace, placeTile };
+const checkBoardOnHover = (
+    boardOffsetLeft: number,
+    boardOffsetTop: number,
+    tileSize: number,
+    x: number,
+    y: number,
+    board: TileState[][],
+    tile: number[][]
+) => {
+    const closestXCoord = Math.round((x - boardOffsetLeft) / tileSize);
+    const closestYCoord = Math.round((y - boardOffsetTop) / tileSize);
+    for (let coord of tile) {
+        let xTry = coord[0] + closestXCoord;
+        let yTry = coord[1] + closestYCoord;
+        if (xTry < 0 || xTry >= board.length) {
+            return null;
+        }
+        if (yTry < 0 || yTry >= board.length) {
+            return null;
+        }
+        if (board[xTry][yTry] === TileState.Occupied) {
+            return null;
+        }
+    }
+    return tile.map((coord) => [
+        coord[0] + closestXCoord,
+        coord[1] + closestYCoord,
+    ]);
+};
+
+export { canPlace, placeTile, checkBoardOnHover };

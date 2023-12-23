@@ -1,7 +1,8 @@
 import { useBoardState } from "@/context/BoardStateContext";
 import { TileState } from "../utils/gameEnums";
-import { FunctionComponent } from "react";
+import { FunctionComponent, MutableRefObject, useEffect, useRef } from "react";
 import { placeTile } from "@/utils/gameLogic";
+import { useInteractionState } from "@/context/InteractionContext";
 
 const Tile: FunctionComponent<{
     tileState: TileState;
@@ -9,8 +10,16 @@ const Tile: FunctionComponent<{
     tileCol: number;
 }> = ({ tileState, tileRow, tileCol }) => {
     const { board, setBoardStateAtCoords } = useBoardState();
+    const tileRef: MutableRefObject<HTMLDivElement | null> = useRef(null);
+    const { setTileSize } = useInteractionState();
+
+    useEffect(() => {
+        setTileSize(tileRef.current?.offsetHeight || 0);
+    }, []);
+
     return (
         <div
+            ref={tileRef}
             onClick={() => {
                 placeTile(
                     [[0, 0]],

@@ -5,6 +5,9 @@ import Plus from "@/tiles/Plus";
 import { TileList } from "@/utils/gameEnums";
 import { FunctionComponent, useState } from "react";
 import { useInteractionState } from "@/context/InteractionContext";
+import { checkBoardOnHover } from "@/utils/gameLogic";
+import { useBoardState } from "@/context/BoardStateContext";
+import { tileSizes } from "@/utils/tileSizes";
 
 const TileOption: FunctionComponent<{ tile: TileList; index: number }> = ({
     tile,
@@ -12,17 +15,27 @@ const TileOption: FunctionComponent<{ tile: TileList; index: number }> = ({
 }) => {
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [size, setSize] = useState(1);
-    const { boardOffsetLeft, boardOffsetTop } = useInteractionState();
-    console.log(boardOffsetLeft, boardOffsetTop);
+    const { board } = useBoardState();
+    const { boardOffsetLeft, boardOffsetTop, tileSize } = useInteractionState();
 
     return (
         <div className="flex h-full w-full justify-center items-center">
             <Draggable
                 position={position}
                 defaultPosition={{ x: 0, y: 0 }}
-                onDrag={(event, dragElement) => {
-                    console.log(event);
-                    console.log(dragElement.x, dragElement.y);
+                // @ts-ignore
+                onDrag={(e: MouseEvent) => {
+                    console.log(
+                        checkBoardOnHover(
+                            boardOffsetLeft,
+                            boardOffsetTop,
+                            tileSize,
+                            e.clientX - e.offsetX,
+                            e.clientY - e.offsetY,
+                            board,
+                            tileSizes[tile]
+                        )
+                    );
                 }}
                 onStart={() => {
                     setSize(2);

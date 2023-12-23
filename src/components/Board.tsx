@@ -6,13 +6,16 @@ import { useInteractionState } from "@/context/InteractionContext";
 const Board: FunctionComponent = ({}) => {
     const { board } = useBoardState();
     const { setBoardOffsetLeft, setBoardOffsetTop } = useInteractionState();
-
     const boardRef: MutableRefObject<HTMLDivElement | null> = useRef(null);
+
+    const setBoardOffset = () => {
+        setBoardOffsetLeft(boardRef.current?.offsetLeft || 0);
+        setBoardOffsetTop(boardRef.current?.offsetTop || 0);
+    };
+
     useEffect(() => {
-        window.addEventListener("resize", () => {
-            setBoardOffsetLeft(boardRef.current?.offsetLeft || 0);
-            setBoardOffsetTop(boardRef.current?.offsetTop || 0);
-        });
+        setBoardOffset();
+        window.addEventListener("resize", () => setBoardOffset());
     }, []);
 
     return (
