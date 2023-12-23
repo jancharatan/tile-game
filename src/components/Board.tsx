@@ -1,12 +1,25 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, MutableRefObject, useEffect, useRef } from "react";
 import Quadrant from "./Quadrant";
 import { useBoardState } from "@/context/BoardStateContext";
+import { useInteractionState } from "@/context/InteractionContext";
 
 const Board: FunctionComponent = ({}) => {
     const { board } = useBoardState();
+    const { setBoardOffsetLeft, setBoardOffsetTop } = useInteractionState();
+
+    const boardRef: MutableRefObject<HTMLDivElement | null> = useRef(null);
+    useEffect(() => {
+        window.addEventListener("resize", () => {
+            setBoardOffsetLeft(boardRef.current?.offsetLeft || 0);
+            setBoardOffsetTop(boardRef.current?.offsetTop || 0);
+        });
+    }, []);
 
     return (
-        <div className="mt-8 flex justify-center items-center flex-col">
+        <div
+            ref={boardRef}
+            className="mt-8 flex justify-center items-center flex-col"
+        >
             {[0, 3, 6].map((row) => (
                 <div key={`board-row-${row / 3}`} className="flex ">
                     {[0, 3, 6].map((col) => (

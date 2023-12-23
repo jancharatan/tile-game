@@ -5,6 +5,6 @@ export enum TileState {
 }
 
 export enum TileList {
-    Empty = "Empty",
-    Plus = "Plus",
+    Empty,
+    Plus,
 }
