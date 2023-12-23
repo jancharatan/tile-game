@@ -15,7 +15,7 @@ const TileOption: FunctionComponent<{ tile: TileList; index: number }> = ({
 }) => {
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [size, setSize] = useState(1);
-    const { board, setBoardStateAtCoords } = useBoardState();
+    const { board, setHoveredTiles } = useBoardState();
     const { boardOffsetLeft, boardOffsetTop, tileSize } = useInteractionState();
 
     return (
@@ -34,14 +34,13 @@ const TileOption: FunctionComponent<{ tile: TileList; index: number }> = ({
                         board,
                         tileSizes[tile]
                     );
-                    if (hoveredTiles) {
-                        setBoardStateAtCoords(hoveredTiles, TileState.Hover);
-                    }
+                    setHoveredTiles(hoveredTiles);
                 }}
                 onStart={() => {
                     setSize(2);
                 }}
                 onStop={() => {
+                    setHoveredTiles([]);
                     setPosition({ x: 0, y: 0 });
                     setSize(1);
                 }}

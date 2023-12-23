@@ -12,6 +12,7 @@ const Tile: FunctionComponent<{
     const { board, setBoardStateAtCoords } = useBoardState();
     const tileRef: MutableRefObject<HTMLDivElement | null> = useRef(null);
     const { setTileSize } = useInteractionState();
+    const { hoveredTiles } = useBoardState();
 
     useEffect(() => {
         setTileSize(tileRef.current?.offsetHeight || 0);
@@ -29,9 +30,13 @@ const Tile: FunctionComponent<{
                 );
             }}
             className={`w-10 h-10 shadow-[inset_0_0_0.2pt_0.2pt_rgba(156,163,175,1)]
+                ${
+                    hoveredTiles.some((a) =>
+                        [tileRow, tileCol].every((v, i) => v === a[i])
+                    ) && `!bg-gray-400`
+                }
                 ${tileState === TileState.Empty && `bg-white`}
-                ${tileState === TileState.Occupied && `bg-blue-950`}
-                ${tileState === TileState.Hover && `bg-gray-400`}`}
+                ${tileState === TileState.Occupied && `bg-blue-950`}`}
         />
     );
 };

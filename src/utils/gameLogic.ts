@@ -117,18 +117,15 @@ const checkBoardOnHover = (
         let rowTry = coord[0] + closestRow;
         let colTry = coord[1] + closestCol;
         if (rowTry < 0 || rowTry >= board.length) {
-            return null;
+            return [];
         }
         if (colTry < 0 || colTry >= board.length) {
-            return null;
+            return [];
         }
         if (board[rowTry][colTry] === TileState.Occupied) {
-            return null;
+            return [];
         }
     }
-    console.log(
-        tile.map((coord) => [coord[0] + closestRow, coord[1] + closestCol])
-    );
     return tile.map((coord) => [coord[0] + closestRow, coord[1] + closestCol]);
 };
 

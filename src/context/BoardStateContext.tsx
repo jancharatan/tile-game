@@ -1,3 +1,4 @@
+import Tile from "@/components/Tile";
 import { TileState } from "@/utils/gameEnums";
 import {
     Dispatch,
@@ -10,13 +11,17 @@ import {
 
 type BoardStateContextType = {
     board: TileState[][];
+    hoveredTiles: number[][];
     setBoard: Dispatch<SetStateAction<TileState[][]>>;
+    setHoveredTiles: Dispatch<SetStateAction<number[][]>>;
     setBoardStateAtCoords: (coords: number[][], setTo: TileState) => void;
 };
 
 const BoardStateContext = createContext<BoardStateContextType>({
     board: [[]],
+    hoveredTiles: [],
     setBoard: () => {},
+    setHoveredTiles: () => {},
     setBoardStateAtCoords: () => {},
 });
 
@@ -32,6 +37,7 @@ export const BoardStateProvider: FunctionComponent<{
             new Array(9).fill(TileState.Empty)
         ) as TileState[][]
     );
+    const [hoveredTiles, setHoveredTiles] = useState<number[][]>([]);
 
     const setBoardStateAtCoords = (coords: number[][], setTo: TileState) => {
         for (let coord of coords) {
@@ -42,7 +48,9 @@ export const BoardStateProvider: FunctionComponent<{
 
     const value = {
         board,
+        hoveredTiles,
         setBoard,
+        setHoveredTiles,
         setBoardStateAtCoords,
     };
 
