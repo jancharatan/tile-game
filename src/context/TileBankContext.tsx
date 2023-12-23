@@ -9,21 +9,22 @@ import {
 } from "react";
 
 const getRandomTile = (): TileList => {
-    return Object.values(TileList)[
-        Math.floor(Math.random() * Object.keys(TileList).length)
+    const { [TileList.Empty]: _, ...NoEmptyTileList } = TileList;
+    return Object.values(NoEmptyTileList)[
+        Math.floor(Math.random() * Object.keys(NoEmptyTileList).length)
     ];
 };
 
 type TileBankContextType = {
-    tileBankState: TileList[];
-    setTileBankState: Dispatch<SetStateAction<TileList[]>>;
+    tileBank: TileList[];
+    setTileBank: Dispatch<SetStateAction<TileList[]>>;
     resetTileBank: () => void;
     emptyTile: (index: number) => void;
 };
 
 const TileBankContext = createContext<TileBankContextType>({
-    tileBankState: [],
-    setTileBankState: () => {},
+    tileBank: [],
+    setTileBank: () => {},
     resetTileBank: () => {},
     emptyTile: () => {},
 });
@@ -35,23 +36,21 @@ export function useTileBankState() {
 export const TileBankProvider: FunctionComponent<{
     children: any;
 }> = ({ children }) => {
-    const [tileBankState, setTileBankState] = useState<TileList[]>([]);
+    const [tileBank, setTileBank] = useState<TileList[]>([]);
 
     const resetTileBank = (): void => {
-        setTileBankState([getRandomTile(), getRandomTile(), getRandomTile()]);
+        setTileBank([getRandomTile(), getRandomTile(), getRandomTile()]);
     };
 
     const emptyTile = (index: number): void => {
-        setTileBankState(
-            tileBankState.map((tile, i) =>
-                i === index ? TileList.Empty : tile
-            )
+        setTileBank(
+            tileBank.map((tile, i) => (i === index ? TileList.Empty : tile))
         );
     };
 
     const value = {
-        tileBankState,
-        setTileBankState,
+        tileBank,
+        setTileBank,
         resetTileBank,
         emptyTile,
     };

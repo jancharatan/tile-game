@@ -102,7 +102,7 @@ const checkQuadrantCompletion = (boardState: TileState[][]): number[][][] => {
     return quadrantsToRemove;
 };
 
-const checkBoardOnHover = (
+const checkCurrentDrag = (
     boardOffsetLeft: number,
     boardOffsetTop: number,
     tileSize: number,
@@ -129,4 +129,4 @@ const checkBoardOnHover = (
     return tile.map((coord) => [coord[0] + closestRow, coord[1] + closestCol]);
 };
 
-export { canPlace, placeTile, checkBoardOnHover };
+export { canPlace, placeTile, checkCurrentDrag };

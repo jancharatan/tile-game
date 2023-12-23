@@ -5,19 +5,19 @@ import TileOption from "../components/TileOption";
 import { useTileBankState } from "@/context/TileBankContext";
 
 const TileBank = () => {
-    const { tileBankState, resetTileBank } = useTileBankState();
+    const { tileBank, resetTileBank } = useTileBankState();
 
     useEffect(() => {
-        if (tileBankState.length === 0) {
+        if (tileBank.length === 0) {
             resetTileBank();
         }
     }, []);
 
     return (
         <div className="flex items-center justify-center">
-            <TileOption tile={tileBankState[0]} index={0} />
-            <TileOption tile={tileBankState[1]} index={1} />
-            <TileOption tile={tileBankState[2]} index={2} />
+            <TileOption tile={tileBank[0]} index={0} />
+            <TileOption tile={tileBank[1]} index={1} />
+            <TileOption tile={tileBank[2]} index={2} />
         </div>
     );
 };
