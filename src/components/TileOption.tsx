@@ -1,16 +1,15 @@
 "use client";
 
 import Draggable from "react-draggable";
-import { TileList } from "@/utils/gameEnums";
 import { FunctionComponent, useState } from "react";
 import { useInteractionState } from "@/context/InteractionContext";
 import { checkCurrentDrag, placeTile } from "@/utils/gameLogic";
 import { useBoardState } from "@/context/BoardStateContext";
-import { tileSizes } from "@/utils/tileSizes";
+import { tileSizes } from "@/tiles/tileSizes";
 import { useTileBankState } from "@/context/TileBankContext";
-import { Dot, Plus, TwoUp, ThreeUp, FourUp } from "@/tiles";
+import TileFactory from "@/tiles/TileFactory";
 
-const TileOption: FunctionComponent<{ tile: TileList; index: number }> = ({
+const TileOption: FunctionComponent<{ tile: number; index: number }> = ({
     tile,
     index,
 }) => {
@@ -58,11 +57,9 @@ const TileOption: FunctionComponent<{ tile: TileList; index: number }> = ({
                 defaultClassName="oveflow-auto resize"
             >
                 <div className="flex justify-center items-center w-52 h-52">
-                    {tile === TileList.Plus && <Plus size={20 * size} />}
-                    {tile === TileList.Dot && <Dot size={20 * size} />}
-                    {tile === TileList.TwoUp && <TwoUp size={20 * size} />}
-                    {tile === TileList.ThreeUp && <ThreeUp size={20 * size} />}
-                    {tile === TileList.FourUp && <FourUp size={20 * size} />}
+                    {tile !== -1 && (
+                        <TileFactory size={20 * size} tiles={tileSizes[tile]} />
+                    )}
                 </div>
             </Draggable>
         </div>

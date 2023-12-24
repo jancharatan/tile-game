@@ -1,4 +1,4 @@
-import { TileList } from "@/utils/gameEnums";
+import { tileSizes } from "@/tiles/tileSizes";
 import {
     Dispatch,
     FunctionComponent,
@@ -8,16 +8,13 @@ import {
     useState,
 } from "react";
 
-const getRandomTile = (): TileList => {
-    const { [TileList.Empty]: _, ...NoEmptyTileList } = TileList;
-    return Object.values(NoEmptyTileList)[
-        Math.floor(Math.random() * Object.keys(NoEmptyTileList).length)
-    ];
+const getRandomTile = (): number => {
+    return Math.floor(Math.random() * Object.keys(tileSizes).length);
 };
 
 type TileBankContextType = {
-    tileBank: TileList[];
-    setTileBank: Dispatch<SetStateAction<TileList[]>>;
+    tileBank: number[];
+    setTileBank: Dispatch<SetStateAction<number[]>>;
     resetTileBank: () => void;
     emptyTile: (index: number) => void;
 };
@@ -36,16 +33,14 @@ export function useTileBankState() {
 export const TileBankProvider: FunctionComponent<{
     children: any;
 }> = ({ children }) => {
-    const [tileBank, setTileBank] = useState<TileList[]>([]);
+    const [tileBank, setTileBank] = useState<number[]>([]);
 
     const resetTileBank = (): void => {
         setTileBank([getRandomTile(), getRandomTile(), getRandomTile()]);
     };
 
     const emptyTile = (index: number): void => {
-        setTileBank(
-            tileBank.map((tile, i) => (i === index ? TileList.Empty : tile))
-        );
+        setTileBank(tileBank.map((tile, i) => (i === index ? -1 : tile)));
     };
 
     const value = {
