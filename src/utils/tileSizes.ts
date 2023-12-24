@@ -8,5 +8,10 @@ export const tileSizes = {
         [1, 2],
         [2, 1],
     ],
+    [TileList.Dot]: [[0, 0]],
+    [TileList.TwoUp]: [
+        [0, 0],
+        [1, 0],
+    ],
     [TileList.Empty]: [],
 };
