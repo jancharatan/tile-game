@@ -2,12 +2,13 @@
 
 import Draggable from "react-draggable";
 import Plus from "@/tiles/Plus";
-import { TileList, TileState } from "@/utils/gameEnums";
+import { TileList } from "@/utils/gameEnums";
 import { FunctionComponent, useState } from "react";
 import { useInteractionState } from "@/context/InteractionContext";
-import { checkCurrentDrag } from "@/utils/gameLogic";
+import { checkCurrentDrag, placeTile } from "@/utils/gameLogic";
 import { useBoardState } from "@/context/BoardStateContext";
 import { tileSizes } from "@/utils/tileSizes";
+import { useTileBankState } from "@/context/TileBankContext";
 
 const TileOption: FunctionComponent<{ tile: TileList; index: number }> = ({
     tile,
@@ -18,6 +19,7 @@ const TileOption: FunctionComponent<{ tile: TileList; index: number }> = ({
     const { board, hoveredTiles, setHoveredTiles, setBoardStateAtCoords } =
         useBoardState();
     const { boardOffsetLeft, boardOffsetTop, tileSize } = useInteractionState();
+    const { emptyTile } = useTileBankState();
 
     const tilesToModify = (e: MouseEvent) => {
         return checkCurrentDrag(
@@ -45,7 +47,10 @@ const TileOption: FunctionComponent<{ tile: TileList; index: number }> = ({
                     setSize(2);
                 }}
                 onStop={() => {
-                    setBoardStateAtCoords(hoveredTiles, TileState.Occupied);
+                    placeTile(hoveredTiles, board, setBoardStateAtCoords);
+                    if (hoveredTiles.length !== 0) {
+                        emptyTile(index);
+                    }
                     setHoveredTiles([]);
                     setPosition({ x: 0, y: 0 });
                     setSize(1);

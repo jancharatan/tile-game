@@ -3,15 +3,16 @@
 import { useEffect } from "react";
 import TileOption from "../components/TileOption";
 import { useTileBankState } from "@/context/TileBankContext";
+import { TileList } from "@/utils/gameEnums";
 
 const TileBank = () => {
     const { tileBank, resetTileBank } = useTileBankState();
 
     useEffect(() => {
-        if (tileBank.length === 0) {
+        if (tileBank.every((tile) => tile === TileList.Empty)) {
             resetTileBank();
         }
-    }, []);
+    }, [tileBank]);
 
     return (
         <div className="flex items-center justify-center">

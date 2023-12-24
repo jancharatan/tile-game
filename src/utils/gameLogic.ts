@@ -14,18 +14,10 @@ const canPlace = (tile: number[][], location: number[]): boolean => {
 };
 
 const placeTile = (
-    tile: number[][],
-    location: number[],
+    coords: number[][],
     boardState: TileState[][],
     setBoardStateAtCoords: (coords: number[][], setTo: TileState) => void
 ): void => {
-    let coords = [];
-    for (let coord of tile) {
-        let row = location[0] + coord[0];
-        let col = location[1] + coord[1];
-        coords.push([row, col]);
-    }
-
     setBoardStateAtCoords(coords, TileState.Occupied);
     const rows = checkRowCompletion(boardState);
     const cols = checkColCompletion(boardState);
