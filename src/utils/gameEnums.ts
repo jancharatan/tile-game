@@ -8,4 +8,6 @@ export enum TileList {
     Plus = "Plus",
     Dot = "Dot",
     TwoUp = "TwoUp",
+    ThreeUp = "ThreeUp",
+    FourUp = "FourUp",
 }

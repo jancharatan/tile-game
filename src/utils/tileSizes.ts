@@ -13,5 +13,16 @@ export const tileSizes = {
         [0, 0],
         [1, 0],
     ],
+    [TileList.ThreeUp]: [
+        [0, 0],
+        [1, 0],
+        [2, 0],
+    ],
+    [TileList.FourUp]: [
+        [0, 0],
+        [1, 0],
+        [2, 0],
+        [3, 0],
+    ],
     [TileList.Empty]: [],
 };

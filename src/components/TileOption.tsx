@@ -8,7 +8,7 @@ import { checkCurrentDrag, placeTile } from "@/utils/gameLogic";
 import { useBoardState } from "@/context/BoardStateContext";
 import { tileSizes } from "@/utils/tileSizes";
 import { useTileBankState } from "@/context/TileBankContext";
-import { Dot, Plus, TwoUp } from "@/tiles";
+import { Dot, Plus, TwoUp, ThreeUp, FourUp } from "@/tiles";
 
 const TileOption: FunctionComponent<{ tile: TileList; index: number }> = ({
     tile,
@@ -57,10 +57,12 @@ const TileOption: FunctionComponent<{ tile: TileList; index: number }> = ({
                 }}
                 defaultClassName="oveflow-auto resize"
             >
-                <div className="flex justify-center items-center w-36 h-36">
+                <div className="flex justify-center items-center w-52 h-52">
                     {tile === TileList.Plus && <Plus size={20 * size} />}
                     {tile === TileList.Dot && <Dot size={20 * size} />}
                     {tile === TileList.TwoUp && <TwoUp size={20 * size} />}
+                    {tile === TileList.ThreeUp && <ThreeUp size={20 * size} />}
+                    {tile === TileList.FourUp && <FourUp size={20 * size} />}
                 </div>
             </Draggable>
         </div>
