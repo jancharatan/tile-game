@@ -15,7 +15,7 @@ const Home: FunctionComponent<{}> = () => {
                         Tile Game
                     </div>
                     <Score />
-                    <button className="w-48 mb-3 text-2xl font-semibold border-black border-2 bg-white text-black p-2 rounded-md hover:text-white hover:bg-black hover:border-white hover:border-2">
+                    <button className="w-48 mb-3 text-2xl font-semibold border-black border-2 bg-white text-black p-1 rounded-md hover:text-white hover:bg-black hover:border-white">
                         Donate
                     </button>
                 </div>

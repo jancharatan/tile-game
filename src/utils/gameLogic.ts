@@ -1,11 +1,23 @@
-import { useBoardState } from "@/context/BoardStateContext";
 import { TileState } from "./gameEnums";
+import { tileSizes } from "@/tiles/tileSizes";
 
-const canPlace = (tile: number[][], location: number[]): boolean => {
-    const { board } = useBoardState();
+const canPlace = (
+    board: TileState[][],
+    tile: number[][],
+    location: number[]
+): boolean => {
     for (let coords of tile) {
         let row = location[0] + coords[0];
         let col = location[1] + coords[1];
+
+        if (row < 0 || row >= board.length) {
+            return false;
+        }
+
+        if (col < 0 || col >= board.length) {
+            return false;
+        }
+
         if (board[row][col] === TileState.Occupied) {
             return false;
         }
@@ -121,4 +133,24 @@ const checkCurrentDrag = (
     return tile.map((coord) => [coord[0] + closestRow, coord[1] + closestCol]);
 };
 
-export { canPlace, placeTile, checkCurrentDrag };
+const isGameOver = (board: TileState[][], tiles: number[]) => {
+    if (tiles.every((tile) => tile === -1)) {
+        return false;
+    }
+
+    for (let tileIndex = 0; tileIndex < tiles.length; tileIndex++) {
+        let tile = tiles[tileIndex];
+        if (tile !== -1) {
+            for (let i = 0; i < board.length; i++) {
+                for (let j = 0; j < board.length; j++) {
+                    if (canPlace(board, tileSizes[tile], [i, j])) {
+                        return false;
+                    }
+                }
+            }
+        }
+    }
+    return true;
+};
+
+export { canPlace, placeTile, checkCurrentDrag, isGameOver };

@@ -10,6 +10,7 @@ const TileFactory: FunctionComponent<{ size: number; tiles: number[][] }> = ({
         <svg version="1" width={widthMax * size} height={heightMax * size}>
             {tiles.map((coord) => (
                 <rect
+                    key={`${coord[1]}, ${coord[0]}`}
                     style={{ pointerEvents: "none" }}
                     x={coord[1] * size}
                     y={coord[0] * size}

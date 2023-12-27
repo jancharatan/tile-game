@@ -7,28 +7,33 @@ import {
     useState,
 } from "react";
 
-type ScoreContextType = {
+type GameContextType = {
     score: number;
     setScore: Dispatch<SetStateAction<number>>;
     resetScore: () => void;
     increaseScore: (index: number) => void;
+    gameOver: boolean;
+    setGameOver: Dispatch<SetStateAction<boolean>>;
 };
 
-const ScoreContext = createContext<ScoreContextType>({
+const GameContext = createContext<GameContextType>({
     score: 0,
     setScore: () => {},
     resetScore: () => {},
     increaseScore: () => {},
+    gameOver: false,
+    setGameOver: () => {},
 });
 
-export const useScoreState = () => {
-    return useContext(ScoreContext);
+export const useGameState = () => {
+    return useContext(GameContext);
 };
 
-export const ScoreProvider: FunctionComponent<{
+export const GameProvider: FunctionComponent<{
     children: any;
 }> = ({ children }) => {
     const [score, setScore] = useState<number>(0);
+    const [gameOver, setGameOver] = useState<boolean>(false);
 
     const resetScore = (): void => {
         setScore(0);
@@ -43,9 +48,11 @@ export const ScoreProvider: FunctionComponent<{
         setScore,
         resetScore,
         increaseScore,
+        gameOver,
+        setGameOver,
     };
 
     return (
-        <ScoreContext.Provider value={value}>{children}</ScoreContext.Provider>
+        <GameContext.Provider value={value}>{children}</GameContext.Provider>
     );
 };
