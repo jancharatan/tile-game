@@ -28,7 +28,8 @@ const canPlace = (
 const placeTile = (
     coords: number[][],
     boardState: TileState[][],
-    setBoardStateAtCoords: (coords: number[][], setTo: TileState) => void
+    setBoardStateAtCoords: (coords: number[][], setTo: TileState) => void,
+    increaseScore: (amount: number) => void
 ): void => {
     setBoardStateAtCoords(coords, TileState.Occupied);
     const rows = checkRowCompletion(boardState);
@@ -37,6 +38,13 @@ const placeTile = (
     for (let coords of rows.concat(cols).concat(quadrants)) {
         setBoardStateAtCoords(coords, TileState.Empty);
     }
+    increaseScore(
+        coords.length +
+            20 * rows.length +
+            20 * cols.length +
+            20 * quadrants.length +
+            10 * (rows.length + cols.length + quadrants.length)
+    );
 };
 
 const checkRowCompletion = (boardState: TileState[][]): number[][][] => {

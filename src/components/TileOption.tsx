@@ -8,6 +8,7 @@ import { useBoardState } from "@/context/BoardStateContext";
 import { tileSizes } from "@/tiles/tileSizes";
 import { useTileBankState } from "@/context/TileBankContext";
 import TileFactory from "@/tiles/TileFactory";
+import { useGameState } from "@/context/GameContext";
 
 const TileOption: FunctionComponent<{ tile: number; index: number }> = ({
     tile,
@@ -19,6 +20,7 @@ const TileOption: FunctionComponent<{ tile: number; index: number }> = ({
         useBoardState();
     const { boardOffsetLeft, boardOffsetTop, tileSize } = useInteractionState();
     const { emptyTile } = useTileBankState();
+    const { increaseScore } = useGameState();
 
     const tilesToModify = (e: MouseEvent) => {
         return checkCurrentDrag(
@@ -46,7 +48,12 @@ const TileOption: FunctionComponent<{ tile: number; index: number }> = ({
                     setSize(2);
                 }}
                 onStop={() => {
-                    placeTile(hoveredTiles, board, setBoardStateAtCoords);
+                    placeTile(
+                        hoveredTiles,
+                        board,
+                        setBoardStateAtCoords,
+                        increaseScore
+                    );
                     if (hoveredTiles.length !== 0) {
                         emptyTile(index);
                     }
