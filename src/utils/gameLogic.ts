@@ -40,10 +40,10 @@ const placeTile = (
     }
     increaseScore(
         coords.length +
-            20 * rows.length +
-            20 * cols.length +
-            20 * quadrants.length +
-            10 * (rows.length + cols.length + quadrants.length)
+            10 * rows.length +
+            10 * cols.length +
+            10 * quadrants.length +
+            5 * (rows.length + cols.length + quadrants.length)
     );
 };
 
