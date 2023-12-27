@@ -3,12 +3,16 @@
 import { useEffect } from "react";
 import TileOption from "../components/TileOption";
 import { useTileBankState } from "@/context/TileBankContext";
+import { EMPTY_TILE_SLOT } from "@/utils/gameEnums";
 
 const TileBank = () => {
     const { tileBank, resetTileBank } = useTileBankState();
 
     useEffect(() => {
-        if (tileBank.length === 0 || tileBank.every((tile) => tile === -1)) {
+        if (
+            tileBank.length === 0 ||
+            tileBank.every((tile) => tile === EMPTY_TILE_SLOT)
+        ) {
             resetTileBank();
         }
     }, [tileBank]);

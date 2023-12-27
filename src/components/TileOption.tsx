@@ -9,6 +9,7 @@ import { tileSizes } from "@/tiles/tileSizes";
 import { useTileBankState } from "@/context/TileBankContext";
 import TileFactory from "@/tiles/TileFactory";
 import { useGameState } from "@/context/GameContext";
+import { EMPTY_TILE_SLOT } from "@/utils/gameEnums";
 
 const TileOption: FunctionComponent<{ tile: number; index: number }> = ({
     tile,
@@ -64,7 +65,7 @@ const TileOption: FunctionComponent<{ tile: number; index: number }> = ({
                 defaultClassName="oveflow-auto resize"
             >
                 <div className="flex justify-center items-center w-52 h-52">
-                    {tile !== -1 && (
+                    {tile !== EMPTY_TILE_SLOT && (
                         <TileFactory size={20 * size} tiles={tileSizes[tile]} />
                     )}
                 </div>

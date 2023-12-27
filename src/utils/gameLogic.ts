@@ -1,5 +1,6 @@
 import { TileState } from "./gameEnums";
 import { tileSizes } from "@/tiles/tileSizes";
+import { EMPTY_TILE_SLOT } from "@/utils/gameEnums";
 
 const canPlace = (
     board: TileState[][],
@@ -142,13 +143,13 @@ const checkCurrentDrag = (
 };
 
 const isGameOver = (board: TileState[][], tiles: number[]) => {
-    if (tiles.every((tile) => tile === -1)) {
+    if (tiles.every((tile) => tile === EMPTY_TILE_SLOT)) {
         return false;
     }
 
     for (let tileIndex = 0; tileIndex < tiles.length; tileIndex++) {
         let tile = tiles[tileIndex];
-        if (tile !== -1) {
+        if (tile !== EMPTY_TILE_SLOT) {
             for (let i = 0; i < board.length; i++) {
                 for (let j = 0; j < board.length; j++) {
                     if (canPlace(board, tileSizes[tile], [i, j])) {
