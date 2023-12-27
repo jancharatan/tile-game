@@ -14,13 +14,14 @@ const Board: FunctionComponent = ({}) => {
     const boardRef: MutableRefObject<HTMLDivElement | null> = useRef(null);
 
     const setBoardOffset = () => {
-        setBoardOffsetLeft(boardRef.current?.offsetLeft || 0);
-        setBoardOffsetTop(boardRef.current?.offsetTop || 0);
+        setBoardOffsetLeft(boardRef.current?.getBoundingClientRect().left || 0);
+        setBoardOffsetTop(boardRef.current?.getBoundingClientRect().top || 0);
     };
 
     useEffect(() => {
         setBoardOffset();
         window.addEventListener("resize", () => setBoardOffset());
+        window.addEventListener("scroll", () => setBoardOffset());
         if (isGameOver(board, tileBank)) {
             setGameOver(true);
         }
@@ -36,7 +37,7 @@ const Board: FunctionComponent = ({}) => {
     return (
         <div
             ref={boardRef}
-            className="mt-8 flex justify-center items-center flex-col"
+            className="flex justify-center items-center flex-col"
         >
             {gameOver && (
                 <div className="absolute z-10 flex justify-center items-center flex-col">
