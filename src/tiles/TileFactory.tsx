@@ -1,9 +1,10 @@
 import { FunctionComponent } from "react";
 
-const TileFactory: FunctionComponent<{ size: number; tiles: number[][] }> = ({
-    size,
-    tiles,
-}) => {
+const TileFactory: FunctionComponent<{
+    size: number;
+    tiles: number[][];
+    unplaceable: boolean;
+}> = ({ size, tiles, unplaceable }) => {
     let widthMax = Math.max(...tiles.map((tuple) => tuple[1])) + 1;
     let heightMax = Math.max(...tiles.map((tuple) => tuple[0])) + 1;
     return (
@@ -16,7 +17,7 @@ const TileFactory: FunctionComponent<{ size: number; tiles: number[][] }> = ({
                     y={coord[0] * size}
                     width={size}
                     height={size}
-                    fill="#172554"
+                    fill={unplaceable ? "#303030" : "#172554"}
                 />
             ))}
         </svg>

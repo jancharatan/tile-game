@@ -142,7 +142,7 @@ const checkCurrentDrag = (
     return tile.map((coord) => [coord[0] + closestRow, coord[1] + closestCol]);
 };
 
-const isGameOver = (board: TileState[][], tiles: number[]) => {
+const checkTilesUnplaceable = (board: TileState[][], tiles: number[]) => {
     if (tiles.every((tile) => tile === EMPTY_TILE_SLOT)) {
         return false;
     }
@@ -162,4 +162,4 @@ const isGameOver = (board: TileState[][], tiles: number[]) => {
     return true;
 };
 
-export { canPlace, placeTile, checkCurrentDrag, isGameOver };
+export { canPlace, placeTile, checkCurrentDrag, checkTilesUnplaceable };

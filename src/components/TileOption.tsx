@@ -3,7 +3,11 @@
 import Draggable from "react-draggable";
 import { FunctionComponent, useState } from "react";
 import { useInteractionState } from "@/context/InteractionContext";
-import { checkCurrentDrag, placeTile } from "@/utils/gameLogic";
+import {
+    checkTilesUnplaceable,
+    checkCurrentDrag,
+    placeTile,
+} from "@/utils/gameLogic";
 import { useBoardState } from "@/context/BoardStateContext";
 import { tileSizes } from "@/tiles/tileSizes";
 import { useTileBankState } from "@/context/TileBankContext";
@@ -35,10 +39,13 @@ const TileOption: FunctionComponent<{ tile: number; index: number }> = ({
         );
     };
 
+    const unplaceable = checkTilesUnplaceable(board, [tile]);
+
     return (
         <div className="flex h-full w-full justify-center items-center">
             <Draggable
                 position={position}
+                disabled={unplaceable}
                 defaultPosition={{ x: 0, y: 0 }}
                 // @ts-ignore
                 onDrag={(e: MouseEvent) => {
@@ -66,7 +73,11 @@ const TileOption: FunctionComponent<{ tile: number; index: number }> = ({
             >
                 <div className="flex justify-center items-center w-52 h-52">
                     {tile !== EMPTY_TILE_SLOT && (
-                        <TileFactory size={20 * size} tiles={tileSizes[tile]} />
+                        <TileFactory
+                            size={20 * size}
+                            tiles={tileSizes[tile]}
+                            unplaceable={unplaceable}
+                        />
                     )}
                 </div>
             </Draggable>

@@ -2,7 +2,7 @@ import { FunctionComponent, MutableRefObject, useEffect, useRef } from "react";
 import Quadrant from "./Quadrant";
 import { useBoardState } from "@/context/BoardStateContext";
 import { useInteractionState } from "@/context/InteractionContext";
-import { isGameOver } from "@/utils/gameLogic";
+import { checkTilesUnplaceable } from "@/utils/gameLogic";
 import { useTileBankState } from "@/context/TileBankContext";
 import { useGameState } from "@/context/GameContext";
 
@@ -22,7 +22,7 @@ const Board: FunctionComponent = ({}) => {
         setBoardOffset();
         window.addEventListener("resize", () => setBoardOffset());
         window.addEventListener("scroll", () => setBoardOffset());
-        if (isGameOver(board, tileBank)) {
+        if (checkTilesUnplaceable(board, tileBank)) {
             setGameOver(true);
         }
     }, [tileBank]);
