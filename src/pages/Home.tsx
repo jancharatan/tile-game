@@ -4,10 +4,9 @@ import { FunctionComponent } from "react";
 import Board from "../components/Board";
 import TileBank from "../components/TileBank";
 import ContextProvider from "@/context/ContextProvider";
-import { useGameState } from "@/context/GameContext";
+import Score from "@/components/Score";
 
 const Home: FunctionComponent<{}> = () => {
-    const { score } = useGameState();
     return (
         <ContextProvider>
             <div className="p-10 flex flex-col items-center">
@@ -15,9 +14,7 @@ const Home: FunctionComponent<{}> = () => {
                     <div className="w-28 md:w-36 text-lg md:text-xl font-semibold p-2">
                         Tile Game
                     </div>
-                    <div className="flex text-white font-bold text-lg md:text-xl">
-                        Score: {score}
-                    </div>
+                    <Score />
                     <button className="w-28 md:w-36 text-lg md:text-xl font-semibold border-black border-2 bg-white text-black p-1 rounded-md hover:text-white hover:bg-black hover:border-white">
                         Donate
                     </button>
