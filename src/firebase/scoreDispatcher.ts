@@ -8,8 +8,10 @@ import {
     limit,
     query,
     getDocs,
+    DocumentData,
 } from "firebase/firestore";
 import { LeaderboardContextType } from "@/context/LeaderboardContext";
+import { Dispatch, SetStateAction } from "react";
 
 export const saveScore = (score: number): boolean => {
     const auth = getAuth();
@@ -31,11 +33,11 @@ export const saveScore = (score: number): boolean => {
 };
 
 export const getScores = (
-    useLeaderboardState: () => LeaderboardContextType
+    topScores: DocumentData[] | null,
+    setTopScores: Dispatch<SetStateAction<DocumentData[] | null>>
 ) => {
     const auth = getAuth();
     const db = getFirestore();
-    const { topScores, setTopScores } = useLeaderboardState();
 
     if (!auth.currentUser?.uid) {
         return false;

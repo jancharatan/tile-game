@@ -5,7 +5,8 @@ import { Dispatch, FunctionComponent, SetStateAction } from "react";
 const ScoreModal: FunctionComponent<{
     setShowScoreModal: Dispatch<SetStateAction<boolean>>;
 }> = ({ setShowScoreModal }) => {
-    const scores = getScores(useLeaderboardState);
+    const { topScores, setTopScores } = useLeaderboardState();
+    const scores = getScores(topScores, setTopScores);
     return (
         <div className="absolute bg-white inset-0 mx-auto my-auto h-3/4 w-2/4 z-10 p-4 rounded-md">
             <div className="flex flex-row justify-between text-black text-lg md:text-xl font-semibold">
