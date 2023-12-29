@@ -9,7 +9,7 @@ import {
     query,
     getDocs,
 } from "firebase/firestore";
-import { useLeaderboardState } from "@/context/LeaderboardContext";
+import { LeaderboardContextType } from "@/context/LeaderboardContext";
 
 export const saveScore = (score: number): boolean => {
     const auth = getAuth();
@@ -30,7 +30,9 @@ export const saveScore = (score: number): boolean => {
     return true;
 };
 
-export const getScores = () => {
+export const getScores = (
+    useLeaderboardState: () => LeaderboardContextType
+) => {
     const auth = getAuth();
     const db = getFirestore();
     const { topScores, setTopScores } = useLeaderboardState();

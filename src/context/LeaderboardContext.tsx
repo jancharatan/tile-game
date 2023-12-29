@@ -8,7 +8,7 @@ import {
     useState,
 } from "react";
 
-type LeaderboardContextType = {
+export type LeaderboardContextType = {
     topScores: DocumentData[] | null;
     setTopScores: Dispatch<SetStateAction<DocumentData[] | null>>;
 };
