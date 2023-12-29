@@ -3,6 +3,7 @@ import { BoardStateProvider } from "./BoardStateContext";
 import { InteractionProvider } from "./InteractionContext";
 import { GameProvider } from "./GameContext";
 import { TileBankProvider } from "./TileBankContext";
+import { LeaderboardProvider } from "./LeaderboardContext";
 
 const ContextProvider: FunctionComponent<{
     children: any;
@@ -10,7 +11,9 @@ const ContextProvider: FunctionComponent<{
     <InteractionProvider>
         <BoardStateProvider>
             <TileBankProvider>
-                <GameProvider>{children}</GameProvider>
+                <LeaderboardProvider>
+                    <GameProvider>{children}</GameProvider>
+                </LeaderboardProvider>
             </TileBankProvider>
         </BoardStateProvider>
     </InteractionProvider>

@@ -5,11 +5,12 @@ import { useInteractionState } from "@/context/InteractionContext";
 import { checkTilesUnplaceable } from "@/utils/gameLogic";
 import { useTileBankState } from "@/context/TileBankContext";
 import { useGameState } from "@/context/GameContext";
+import { saveScore } from "@/firebase/scoreDispatcher";
 
 const Board: FunctionComponent = ({}) => {
     const { board, clearBoard } = useBoardState();
     const { tileBank, resetTileBank } = useTileBankState();
-    const { gameOver, setGameOver, resetScore } = useGameState();
+    const { score, gameOver, setGameOver, resetScore } = useGameState();
     const { setBoardOffsetLeft, setBoardOffsetTop } = useInteractionState();
     const boardRef: MutableRefObject<HTMLDivElement | null> = useRef(null);
 
@@ -23,6 +24,7 @@ const Board: FunctionComponent = ({}) => {
         window.addEventListener("resize", () => setBoardOffset());
         window.addEventListener("scroll", () => setBoardOffset());
         if (checkTilesUnplaceable(board, tileBank)) {
+            saveScore(score);
             setGameOver(true);
         }
     }, [tileBank]);
